@@ -62,17 +62,17 @@ public class ApiParameterError {
     private final transient SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
     public static ApiParameterError generalError(final String globalisationMessageCode, final String defaultUserMessage,
-            final Object... defaultUserMessageArgs) {
+                                                 final Object... defaultUserMessageArgs) {
         return new ApiParameterError(globalisationMessageCode, defaultUserMessage, defaultUserMessageArgs);
     }
 
     public static ApiParameterError resourceIdentifierNotFound(final String globalisationMessageCode, final String defaultUserMessage,
-            final Object... defaultUserMessageArgs) {
+                                                               final Object... defaultUserMessageArgs) {
         return new ApiParameterError(globalisationMessageCode, defaultUserMessage, defaultUserMessageArgs);
     }
 
     public static ApiParameterError parameterError(final String globalisationMessageCode, final String defaultUserMessage,
-            final String parameterName, final Object... defaultUserMessageArgs) {
+                                                   final String parameterName, final Object... defaultUserMessageArgs) {
         final ApiParameterError error = new ApiParameterError(globalisationMessageCode, defaultUserMessage, defaultUserMessageArgs);
         error.setParameterName(parameterName);
         return error;

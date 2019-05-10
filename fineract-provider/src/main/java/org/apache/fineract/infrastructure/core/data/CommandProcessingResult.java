@@ -44,8 +44,8 @@ public class CommandProcessingResult implements Serializable {
     private Boolean rollbackTransaction;
 
     public static CommandProcessingResult fromDetails(final Long commandId, final Long officeId, final Long groupId, final Long clientId,
-            final Long loanId, final Long savingsId, final String resourceIdentifier, final Long entityId, final String transactionId,
-            final Map<String, Object> changes, final Long productId, final Boolean rollbackTransaction, final Long subResourceId) {
+                                                      final Long loanId, final Long savingsId, final String resourceIdentifier, final Long entityId, final String transactionId,
+                                                      final Map<String, Object> changes, final Long productId, final Boolean rollbackTransaction, final Long subResourceId) {
         return new CommandProcessingResult(commandId, officeId, groupId, clientId, loanId, savingsId, resourceIdentifier, entityId,
                 transactionId, changes, productId, rollbackTransaction, subResourceId);
     }
@@ -67,7 +67,7 @@ public class CommandProcessingResult implements Serializable {
     }
 
     public static CommandProcessingResult subResourceResult(final Long resourceId, final Long subResourceId, final Long commandId,
-            final Map<String, Object> changes) {
+                                                            final Map<String, Object> changes) {
         return new CommandProcessingResult(resourceId, subResourceId, commandId, changes);
     }
 

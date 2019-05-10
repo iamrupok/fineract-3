@@ -18,11 +18,10 @@
  */
 package org.apache.fineract.infrastructure.core.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -97,7 +96,7 @@ public class ApiGlobalErrorResponse {
     }
 
     public static ApiGlobalErrorResponse domainRuleViolation(final String globalisationMessageCode, final String defaultUserMessage,
-            final Object... defaultUserMessageArgs) {
+                                                             final Object... defaultUserMessageArgs) {
         final ApiGlobalErrorResponse globalErrorResponse = new ApiGlobalErrorResponse();
         globalErrorResponse.setHttpStatusCode("403");
         globalErrorResponse.setDeveloperMessage("Request was understood but caused a domain rule violation.");
@@ -112,7 +111,7 @@ public class ApiGlobalErrorResponse {
     }
 
     public static ApiGlobalErrorResponse notFound(final String globalisationMessageCode, final String defaultUserMessage,
-            final Object... defaultUserMessageArgs) {
+                                                  final Object... defaultUserMessageArgs) {
 
         final ApiGlobalErrorResponse globalErrorResponse = new ApiGlobalErrorResponse();
         globalErrorResponse.setHttpStatusCode("404");
@@ -128,7 +127,7 @@ public class ApiGlobalErrorResponse {
     }
 
     public static ApiGlobalErrorResponse dataIntegrityError(final String globalisationMessageCode, final String defaultUserMessage,
-            final String parameterName, final Object... defaultUserMessageArgs) {
+                                                            final String parameterName, final Object... defaultUserMessageArgs) {
 
         final ApiGlobalErrorResponse globalErrorResponse = new ApiGlobalErrorResponse();
         globalErrorResponse.setHttpStatusCode("403");
@@ -144,7 +143,7 @@ public class ApiGlobalErrorResponse {
     }
 
     public static ApiGlobalErrorResponse badClientRequest(final String globalisationMessageCode, final String defaultUserMessage,
-            final List<ApiParameterError> errors) {
+                                                          final List<ApiParameterError> errors) {
 
         final ApiGlobalErrorResponse globalErrorResponse = new ApiGlobalErrorResponse();
         globalErrorResponse.setHttpStatusCode("400");
@@ -159,7 +158,7 @@ public class ApiGlobalErrorResponse {
     }
 
     public static ApiGlobalErrorResponse serverSideError(final String globalisationMessageCode, final String defaultUserMessage,
-            final Object... defaultUserMessageArgs) {
+                                                         final Object... defaultUserMessageArgs) {
 
         final ApiGlobalErrorResponse globalErrorResponse = new ApiGlobalErrorResponse();
         globalErrorResponse.setHttpStatusCode("500");
@@ -175,7 +174,7 @@ public class ApiGlobalErrorResponse {
     }
 
     public static ApiGlobalErrorResponse serviceUnavailable(final String globalisationMessageCode, final String defaultUserMessage,
-            final Object... defaultUserMessageArgs) {
+                                                            final Object... defaultUserMessageArgs) {
 
         final ApiGlobalErrorResponse globalErrorResponse = new ApiGlobalErrorResponse();
         globalErrorResponse.setHttpStatusCode("503");

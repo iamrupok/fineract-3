@@ -18,8 +18,6 @@
  */
 package org.apache.fineract.infrastructure.core.boot.db;
 
-import javax.sql.DataSource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +25,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import javax.sql.DataSource;
 
 /**
  * Service which "fixes up" the schemaServerPort in the tenants table of the
@@ -62,7 +62,8 @@ public class TenantDataSourcePortFixService {
 	// WebApplicationInitializerConfiguration for classic WAR there
 	// is (intentionally) no MariaDB4j nor a DataSourceProperties
 	// bean (because in the WAR we're using a DS from JNDI)
-	private @Autowired(required = false) DataSourceProperties dsp;
+	private @Autowired(required = false)
+    DataSourceProperties dsp;
 
 	private JdbcTemplate jdbcTemplate;
 

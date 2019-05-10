@@ -18,11 +18,11 @@
  */
 package org.apache.fineract.infrastructure.core.service;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import javax.sql.DataSource;
 
 /**
  * Implementation that returns connection pool datasource for tenants database

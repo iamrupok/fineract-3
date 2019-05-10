@@ -18,14 +18,9 @@
  */
 package org.apache.fineract.infrastructure.core.api;
 
-import java.lang.reflect.Type;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.fineract.infrastructure.core.serialization.FromJsonHelper;
@@ -38,9 +33,9 @@ import org.joda.time.MonthDay;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Immutable representation of a command.
@@ -68,25 +63,25 @@ public final class JsonCommand {
     private final Long organisationCreditBureauId;
 
     public static JsonCommand from(final String jsonCommand, final JsonElement parsedCommand, final FromJsonHelper fromApiJsonHelper,
-            final String entityName, final Long resourceId, final Long subresourceId, final Long groupId, final Long clientId,
-            final Long loanId, final Long savingsId, final String transactionId, final String url, final Long productId,
-            final Long creditBureauId,final Long organisationCreditBureauId) {
+                                   final String entityName, final Long resourceId, final Long subresourceId, final Long groupId, final Long clientId,
+                                   final Long loanId, final Long savingsId, final String transactionId, final String url, final Long productId,
+                                   final Long creditBureauId, final Long organisationCreditBureauId) {
         return new JsonCommand(null, jsonCommand, parsedCommand, fromApiJsonHelper, entityName, resourceId, subresourceId, groupId,
                 clientId, loanId, savingsId, transactionId, url, productId,creditBureauId,organisationCreditBureauId);
 
     }
 
     public static JsonCommand fromExistingCommand(final Long commandId, final String jsonCommand, final JsonElement parsedCommand,
-            final FromJsonHelper fromApiJsonHelper, final String entityName, final Long resourceId, final Long subresourceId,
-            final String url, final Long productId,final Long creditBureauId,final Long organisationCreditBureauId) {
+                                                  final FromJsonHelper fromApiJsonHelper, final String entityName, final Long resourceId, final Long subresourceId,
+                                                  final String url, final Long productId, final Long creditBureauId, final Long organisationCreditBureauId) {
         return new JsonCommand(commandId, jsonCommand, parsedCommand, fromApiJsonHelper, entityName, resourceId, subresourceId, null, null,
                 null, null, null, url, productId,creditBureauId,organisationCreditBureauId);
     }
 
     public static JsonCommand fromExistingCommand(final Long commandId, final String jsonCommand, final JsonElement parsedCommand,
-            final FromJsonHelper fromApiJsonHelper, final String entityName, final Long resourceId, final Long subresourceId,
-            final Long groupId, final Long clientId, final Long loanId, final Long savingsId, final String transactionId, final String url,
-            final Long productId,Long creditBureauId,final Long organisationCreditBureauId) {
+                                                  final FromJsonHelper fromApiJsonHelper, final String entityName, final Long resourceId, final Long subresourceId,
+                                                  final Long groupId, final Long clientId, final Long loanId, final Long savingsId, final String transactionId, final String url,
+                                                  final Long productId, Long creditBureauId, final Long organisationCreditBureauId) {
         return new JsonCommand(commandId, jsonCommand, parsedCommand, fromApiJsonHelper, entityName, resourceId, subresourceId, groupId,
                 clientId, loanId, savingsId, transactionId, url, productId,creditBureauId,organisationCreditBureauId);
 
@@ -587,7 +582,7 @@ public final class JsonCommand {
     }
 
     public boolean isChangeInPasswordParameterNamed(final String parameterName, final String existingValue,
-            final PlatformPasswordEncoder platformPasswordEncoder, final Long saltValue) {
+                                                    final PlatformPasswordEncoder platformPasswordEncoder, final Long saltValue) {
         boolean isChanged = false;
         if (parameterExists(parameterName)) {
             final String workingValue = passwordValueOfParameterNamed(parameterName, platformPasswordEncoder, saltValue);

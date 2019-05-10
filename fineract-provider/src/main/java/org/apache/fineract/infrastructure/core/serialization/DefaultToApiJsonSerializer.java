@@ -18,14 +18,13 @@
  */
 package org.apache.fineract.infrastructure.core.serialization;
 
-import java.util.Collection;
-import java.util.Set;
-
+import com.google.gson.Gson;
 import org.apache.fineract.infrastructure.core.service.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.google.gson.Gson;
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * An abstract helper implementation of {@link ToApiJsonSerializer} for
@@ -74,21 +73,21 @@ public final class DefaultToApiJsonSerializer<T> implements ToApiJsonSerializer<
 
     @Override
     public String serialize(final ApiRequestJsonSerializationSettings settings, final Collection<T> collection,
-            final Set<String> supportedResponseParameters) {
+                            final Set<String> supportedResponseParameters) {
         final Gson delegatedSerializer = findAppropriateSerializer(settings, supportedResponseParameters);
         return serializeWithSettings(delegatedSerializer, settings, collection.toArray());
     }
 
     @Override
     public String serialize(final ApiRequestJsonSerializationSettings settings, final T singleObject,
-            final Set<String> supportedResponseParameters) {
+                            final Set<String> supportedResponseParameters) {
         final Gson delegatedSerializer = findAppropriateSerializer(settings, supportedResponseParameters);
         return serializeWithSettings(delegatedSerializer, settings, singleObject);
     }
 
     @Override
     public String serialize(final ApiRequestJsonSerializationSettings settings, final Page<T> singleObject,
-            final Set<String> supportedResponseParameters) {
+                            final Set<String> supportedResponseParameters) {
         final Gson delegatedSerializer = findAppropriateSerializer(settings, supportedResponseParameters);
         return serializeWithSettings(delegatedSerializer, settings, singleObject);
     }

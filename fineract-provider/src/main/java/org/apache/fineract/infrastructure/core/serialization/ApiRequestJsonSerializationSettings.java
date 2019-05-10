@@ -42,7 +42,7 @@ public class ApiRequestJsonSerializationSettings {
     }
 
     public static ApiRequestJsonSerializationSettings from(final boolean prettyPrint, final Set<String> parametersForPartialResponse,
-            final boolean template, final boolean makerCheckerable, final boolean includeJson) {
+                                                           final boolean template, final boolean makerCheckerable, final boolean includeJson) {
 
         // FIXME - KW - rather than always creating new objects for this could
         // just send by common ones like, prettyprint=false, empty response

@@ -18,8 +18,6 @@
  */
 package org.apache.fineract.infrastructure.core.boot.db;
 
-import javax.sql.DataSource;
-
 import org.apache.fineract.infrastructure.core.boot.JDBCDriverConfig;
 import org.apache.tomcat.jdbc.pool.PoolConfiguration;
 import org.slf4j.Logger;
@@ -27,6 +25,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.sql.DataSource;
 
 /**
  * Configuration for a DataSource.

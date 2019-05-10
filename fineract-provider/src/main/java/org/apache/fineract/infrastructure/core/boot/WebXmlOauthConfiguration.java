@@ -18,9 +18,7 @@
  */
 package org.apache.fineract.infrastructure.core.boot;
 
-import javax.servlet.Filter;
-import javax.servlet.Servlet;
-
+import com.sun.jersey.spi.spring.container.servlet.SpringServlet;
 import org.apache.fineract.infrastructure.core.filters.ResponseCorsFilter;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +27,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import com.sun.jersey.spi.spring.container.servlet.SpringServlet;
+import javax.servlet.Filter;
+import javax.servlet.Servlet;
 
 /**
  * This Configuration replaces what formerly was in web.xml. Beans are loaded only when "oauth" Profile is enabled. 
