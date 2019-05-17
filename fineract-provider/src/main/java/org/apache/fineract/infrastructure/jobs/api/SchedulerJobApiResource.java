@@ -63,6 +63,7 @@ public class SchedulerJobApiResource {
 
     private final SchedulerJobRunnerReadService schedulerJobRunnerReadService;
     private final JobRegisterService jobRegisterService;
+    private final SchedulerJobRunnerReadService jobRunnerReadService;
     private final ApiRequestParameterHelper apiRequestParameterHelper;
     private final ToApiJsonSerializer<JobDetailData> toApiJsonSerializer;
     private final ToApiJsonSerializer<JobDetailHistoryData> jobHistoryToApiJsonSerializer;
@@ -75,6 +76,7 @@ public class SchedulerJobApiResource {
             final ApiRequestParameterHelper apiRequestParameterHelper,
             final ToApiJsonSerializer<JobDetailHistoryData> jobHistoryToApiJsonSerializer,
             final PortfolioCommandSourceWritePlatformService commandsSourceWritePlatformService,
+            final SchedulerJobRunnerReadService jobRunnerReadService,
             final PlatformSecurityContext context) {
         this.schedulerJobRunnerReadService = schedulerJobRunnerReadService;
         this.jobRegisterService = jobRegisterService;
@@ -83,6 +85,7 @@ public class SchedulerJobApiResource {
         this.apiRequestParameterHelper = apiRequestParameterHelper;
         this.commandsSourceWritePlatformService = commandsSourceWritePlatformService;
         this.context = context;
+        this.jobRunnerReadService = jobRunnerReadService;
     }
 
     @GET
@@ -126,7 +129,7 @@ public class SchedulerJobApiResource {
     @Path("{" + SchedulerJobApiConstants.JOB_ID + "}")
     @ApiOperation(value = "Run a Job", notes = "Manually Execute Specific Job.")
     @ApiResponses({@ApiResponse(code = 200, message = "POST: jobs/1?command=executeJob")})
-    public Response executeJob(@PathParam(SchedulerJobApiConstants.JOB_ID) @ApiParam(value = "jobId") final Long jobId,
+    public String executeJob(@PathParam(SchedulerJobApiConstants.JOB_ID) @ApiParam(value = "jobId") final Long jobId,
             @QueryParam(SchedulerJobApiConstants.COMMAND) @ApiParam(value = "command") final String commandParam) {
         // check the logged in user have permissions to execute scheduler jobs
         final boolean hasNotPermission = this.context.authenticatedUser().hasNotPermissionForAnyOf("ALL_FUNCTIONS", "EXECUTEJOB_SCHEDULER");
@@ -134,14 +137,16 @@ public class SchedulerJobApiResource {
             final String authorizationMessage = "User has no authority to execute scheduler jobs";
             throw new NoAuthorizationException(authorizationMessage);
         }
-        Response response = Response.status(400).build();
         if (is(commandParam, SchedulerJobApiConstants.COMMAND_EXECUTE_JOB)) {
             this.jobRegisterService.executeJob(jobId);
-            response = Response.status(202).build();
+
+            final CommandProcessingResult result = new CommandProcessingResult(jobId);
+            result.setResourceName(this.jobRunnerReadService.retrieveOne(jobId).getDisplayName());
+
+            return this.toApiJsonSerializer.serialize(result);
         } else {
             throw new UnrecognizedQueryParamException(SchedulerJobApiConstants.COMMAND, commandParam);
         }
-        return response;
     }
 
     @PUT

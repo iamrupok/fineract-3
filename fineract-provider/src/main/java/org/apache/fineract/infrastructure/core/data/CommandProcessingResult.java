@@ -42,6 +42,7 @@ public class CommandProcessingResult implements Serializable {
     private final String resourceIdentifier;
     private final Long productId;
     private Boolean rollbackTransaction;
+    private String resourceName;
 
     public static CommandProcessingResult fromDetails(final Long commandId, final Long officeId, final Long groupId, final Long clientId,
                                                       final Long loanId, final Long savingsId, final String resourceIdentifier, final Long entityId, final String transactionId,
@@ -98,6 +99,26 @@ public class CommandProcessingResult implements Serializable {
         this.changes = new HashMap<>();
         this.productId = null;
         this.subResourceId = null;
+        this.resourceName = null;
+    }
+
+    public CommandProcessingResult(final Long entityId, String resourceName) {
+        if (entityId != null) {
+            this.resourceIdentifier = entityId.toString();
+        } else {
+            this.resourceIdentifier = null;
+        }
+        this.resourceId = entityId;
+        this.officeId = null;
+        this.groupId = null;
+        this.clientId = null;
+        this.loanId = null;
+        this.savingsId = null;
+        this.transactionId = null;
+        this.changes = new HashMap<>();
+        this.productId = null;
+        this.subResourceId = null;
+        this.resourceName = resourceName;
     }
 
     private CommandProcessingResult(final Long commandId, final Long officeId, final Long groupId, final Long clientId, final Long loanId,
@@ -116,6 +137,7 @@ public class CommandProcessingResult implements Serializable {
         this.productId = productId;
         this.rollbackTransaction = rollbackTransaction;
         this.subResourceId = subResourceId;
+        this.resourceName = null;
     }
 
     private CommandProcessingResult(final Long resourceId, final Long officeId, final Long commandId, final Map<String, Object> changesOnly) {
@@ -135,6 +157,7 @@ public class CommandProcessingResult implements Serializable {
         this.changes = changesOnly;
         this.productId = null;
         this.subResourceId = null;
+        this.resourceName = null;
     }
 
     public Long commandId() {
@@ -200,5 +223,13 @@ public class CommandProcessingResult implements Serializable {
 
     public Long getSubResourceId() {
         return subResourceId;
+    }
+
+    public String getResourceName() {
+        return resourceName;
+    }
+
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
     }
 }
